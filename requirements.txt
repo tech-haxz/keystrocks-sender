@@ -1,1 +1,11 @@
-keyboard==0.13.5
+certifi==2024.7.4
+charset-normalizer==3.3.2
+idna==3.7
+pynput==1.7.7
+pyTelegramBotAPI==4.21.0
+requests==2.32.3
+six==1.16.0
+telebot==0.0.5
+telegram_text==0.2.0
+urllib3==2.2.2
+utils==1.0.2
